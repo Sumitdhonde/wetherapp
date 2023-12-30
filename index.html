@@ -1,5 +1,3 @@
-
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +23,7 @@
       border-radius: 10px 10px 0 0;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-      width: 300px;
+      width: 80%; /* Adjusted width for responsiveness */
       text-align: center;
       padding: 10px;
       position: relative;
@@ -42,12 +40,11 @@
       border-radius: 5px;
       font-size: 14px;
       outline: none;
-      
     }
 
     .search-button {
       padding: 10px;
-      background-color: #e6bfbf; /* Gold color for glossy effect */
+      background-color: #e6bfbf;
       border: none;
       border-radius: 5px;
       color: #222;
@@ -61,7 +58,7 @@
       border-radius: 0 0 10px 10px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-      width: 300px;
+      width: 80%; /* Adjusted width for responsiveness */
       text-align: center;
       padding: 20px;
       position: relative;
@@ -89,7 +86,7 @@
     .temperature {
       font-size: 36px;
       font-weight: bold;
-      color: #e6bfbf; /* Gold color for glossy effect */
+      color: #e6bfbf;
       z-index: 1;
     }
 
@@ -118,17 +115,19 @@
     .info-icon.img {
       width: 20px;
       height: 20px;
-      /* margin-right: 5px;
-      background-image: url('https://www.flaticon.com/free-icon/humidity_3262968');
-      background-size: cover; /* Adjust as needed */
-      /* display: inline-block;
-      z-index: 10; */ 
+    }
+
+    @media screen and (max-width: 768px) {
+      /* Adjust styles for tablets and mobiles */
+      .search-bar, .weather-card {
+        width: 90%;
+      }
     }
   </style>
 </head>
 <body>
   <div class="search-bar">
-    <input id="input"  class="search-input" type="text" placeholder="Enter city name">
+    <input id="input" class="search-input" type="text" placeholder="Enter city name">
     <button class="search-button" onclick="searchWeather()">Search</button>
   </div>
 
@@ -139,58 +138,38 @@
     <div class="location"><h2>Maharashtra, India</h2></div>
     <div class="additional-info">
       <div class="info-icon humidity">
-     
-        <!-- <img class="info-icon humidity" src="" alt=""> -->
-        
-       <h3> Humidity: 62%</h3>
+        <h3> Humidity: 62%</h3>
       </div>
-
-     
       <div class="info-icon wind">
-        <!-- <img class="info-icon wind" src="wind-icon-link.png" alt=""> -->
-        <h3>  Wind:  NW 6.8 km/h</h3>
-       
+        <h3> Wind: NW 6.8 km/h</h3>
       </div>
       <div class="info-icon pressure">
-        <!-- <img class="info-icon pressure" src="location-icon-link.png" alt="Location Icon">  -->
         <h3> Pressure: 1012 mb</h3>
-       
       </div>
     </div>
   </div>
 
   <script>
-//  let city =document.getElementById("input").value
     function searchWeather() {
-      // Implement your weather search logic here
       let cityn = document.getElementById("input").value
-
       api(cityn);
     }
 
+    function api(cityn) {
+      fetch(`https://api.weatherapi.com/v1/current.json?key=e5d817aefada44578d2134242233012&q=${cityn}`)
+        .then(res => res.json())
+        .then(data => show(data))
 
-    
-    function api(cityn){
-
-fetch(`https://api.weatherapi.com/v1/current.json?key=e5d817aefada44578d2134242233012&q=${cityn}`)
-
-.then( res=> res.json())
-.then(data=>  show(data))
-
-function show(data){
-    console.log(data)
-
-    document.querySelector(".city > h1").textContent=`${data.location.name}`
-    document.querySelector(".location > h2").textContent=`${data.location.region}, ${data.location.country}`
-    document.querySelector(".weather-icon").src=`${data.current.condition.icon}`
-    document.querySelector(".wind > h3").textContent=`Wind : 
-    ${data.current.wind_kph}`
-    document.querySelector(".humidity > h3").textContent=`hHumidity: ${data.current.humidity}`
-    document.querySelector(".pressure > h3").textContent=`pressure (mb): ${data.current.pressure_mb}`
-}
-}
-
-
+      function show(data) {
+        console.log(data)
+        document.querySelector(".city > h1").textContent = data.location.name
+        document.querySelector(".location > h2").textContent = `${data.location.region}, ${data.location.country}`
+        document.querySelector(".weather-icon").src = data.current.condition.icon
+        document.querySelector(".wind > h3").textContent = `Wind: ${data.current.wind_kph} km/h`
+        document.querySelector(".humidity > h3").textContent = `Humidity: ${data.current.humidity}%`
+        document.querySelector(".pressure > h3").textContent = `Pressure (mb): ${data.current.pressure_mb}`
+      }
+    }
   </script>
 </body>
 </html>
