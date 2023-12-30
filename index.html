@@ -20,15 +20,14 @@
 
     .search-bar {
       background-color: #333;
-      border-radius: 10px 10px 0 0;
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-      width: 80%; /* Adjusted width for responsiveness */
+      width: 80%;
       text-align: center;
       padding: 10px;
       position: relative;
       margin-bottom: 20px;
-      border-radius: 80px;
     }
 
     .search-input {
@@ -50,19 +49,18 @@
       color: #222;
       cursor: pointer;
       font-size: 14px;
-      border-radius: 80px;
     }
 
     .weather-card {
       background-color: #333;
-      border-radius: 0 0 10px 10px;
+      border-radius: 10px;
       overflow: hidden;
       box-shadow: 0 0 20px rgba(0, 0, 0, 0.6);
-      width: 80%; /* Adjusted width for responsiveness */
+      width: 80%;
       text-align: center;
       padding: 20px;
       position: relative;
-      border-radius: 70px;
+      margin-bottom: 20px;
     }
 
     .weather-card:before {
@@ -78,41 +76,42 @@
     }
 
     .weather-icon {
-      font-size: 48px;
-      margin: 20px 0;
+      font-size: 36px;
+      margin: 10px 0;
       z-index: 1;
     }
 
     .temperature {
-      font-size: 36px;
+      font-size: 24px;
       font-weight: bold;
       color: #e6bfbf;
       z-index: 1;
     }
 
     .city {
-      font-size: 18px;
+      font-size: 16px;
       margin-bottom: 10px;
       z-index: 1;
     }
 
     .location {
-      font-size: 14px;
+      font-size: 12px;
       color: #999;
       margin-bottom: 10px;
       z-index: 1;
     }
 
     .additional-info {
-      font-size: 14px;
+      font-size: 12px;
       color: #999;
-      margin-bottom: 20px;
+      margin-bottom: 10px;
       z-index: 1;
       display: flex;
-      justify-content: space-between;
+      flex-direction: column;
+      align-items: center;
     }
 
-    .info-icon.img {
+    .info-icon {
       width: 20px;
       height: 20px;
     }
@@ -121,7 +120,36 @@
       /* Adjust styles for tablets and mobiles */
       .search-bar, .weather-card {
         width: 90%;
-        height: 90%;
+      }
+
+      .search-input {
+        width: 80%;
+      }
+
+      .search-button {
+        width: 80%;
+      }
+
+      .weather-icon {
+        font-size: 24px;
+        margin: 10px 0;
+      }
+
+      .temperature {
+        font-size: 18px;
+      }
+
+      .city {
+        font-size: 14px;
+        margin-bottom: 5px;
+      }
+
+      .location {
+        font-size: 10px;
+      }
+
+      .additional-info {
+        font-size: 10px;
       }
     }
   </style>
@@ -152,7 +180,7 @@
 
   <script>
     function searchWeather() {
-      let cityn = document.getElementById("input").value
+      let cityn = document.getElementById("input").value;
       api(cityn);
     }
 
@@ -162,13 +190,13 @@
         .then(data => show(data))
 
       function show(data) {
-        console.log(data)
-        document.querySelector(".city > h1").textContent = data.location.name
-        document.querySelector(".location > h2").textContent = `${data.location.region}, ${data.location.country}`
-        document.querySelector(".weather-icon").src = data.current.condition.icon
-        document.querySelector(".wind > h3").textContent = `Wind: ${data.current.wind_kph} km/h`
-        document.querySelector(".humidity > h3").textContent = `Humidity: ${data.current.humidity}%`
-        document.querySelector(".pressure > h3").textContent = `Pressure (mb): ${data.current.pressure_mb}`
+        console.log(data);
+        document.querySelector(".city > h1").textContent = data.location.name;
+        document.querySelector(".location > h2").textContent = `${data.location.region}, ${data.location.country}`;
+        document.querySelector(".weather-icon").src = data.current.condition.icon;
+        document.querySelector(".wind > h3").textContent = `Wind: ${data.current.wind_kph} km/h`;
+        document.querySelector(".humidity > h3").textContent = `Humidity: ${data.current.humidity}%`;
+        document.querySelector(".pressure > h3").textContent = `Pressure (mb): ${data.current.pressure_mb}`;
       }
     }
   </script>
