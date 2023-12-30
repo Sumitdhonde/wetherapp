@@ -187,6 +187,7 @@ function show(data){
     ${data.current.wind_kph}`
     document.querySelector(".humidity > h3").textContent=`hHumidity: ${data.current.humidity}`
     document.querySelector(".pressure > h3").textContent=`pressure (mb): ${data.current.pressure_mb}`
+    document.querySelector(".temperature").textContent=` ${data.current.feelslike_c}  °C`
 }
 }
 
